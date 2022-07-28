@@ -4,8 +4,8 @@ var cuentas = [
   { id:3,nombre: 'Maui', clave: 'Mauiwi', saldo: 67 }
 ];
 
-var jsonUsers = JSON.stringify(cuentas)
-localStorage.setItem('cuentas',jsonUsers  );
+ var jsonUsers = JSON.stringify(cuentas)
+ localStorage.setItem('cuentas',jsonUsers  );
 
 const usuario = document.getElementById('usuario');
 const password = document.getElementById('password');
@@ -44,43 +44,47 @@ if(password){
   });
 }
 
-if(consulta){
-  consulta.addEventListener('click', (e) => {
-    console.log(localStorage.getItem('nombre'));
-    bienvenido.innerHTML = `Bienvenido ${localStorage.getItem('nombre')}`;
-  });
-}
-
 function validarContra(){
-  var allUsers = localStorage.getItem('cuentas');
-  var arrUsers =  JSON.parse(allUsers);
-  arrUsers.forEach(element => {
-    console.log("elemento: "+element.id);
-    if(element.id == userSelected){
-      if(password.value == element.clave){
-        usuarioCuenta = element.nombre;
-        console.log(usuarioCuenta);
-       localStorage.setItem('nombre',usuarioCuenta);
-       localStorage.setItem('saldo',element.saldo);
-       localStorage.setItem('id',element.id);
+  if(password.value == "")
+  {
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+      `<div class="alert alert-danger alert-dismissible" role="alert">`,
+      `   <div>Favor de ingresar una contraseña</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      '</div>'
+    ].join('')
+    alertPlaceholder.append(wrapper);
+  }
+  else{
+    var allUsers = localStorage.getItem('cuentas');
+    var arrUsers =  JSON.parse(allUsers);
+    arrUsers.forEach(element => {
+      console.log("elemento: "+element.id);
+      if(element.id == userSelected){
+        if(password.value == element.clave){
+          usuarioCuenta = element.nombre;
+          console.log(usuarioCuenta);
+         localStorage.setItem('nombre',usuarioCuenta);
+         localStorage.setItem('saldo',element.saldo);
+         localStorage.setItem('id',element.id);
+  
+          window.location="../../cajero.html"; 
 
-        window.location="../../cajero.html"; 
-        
-        // console.log(localStorage.getItem('nombre'));
-        // bienvenido.innerHTML = `Bienvenidos ${localStorage.getItem('nombre')}`;
+        }
+        else{
+          const wrapper = document.createElement('div')
+          wrapper.innerHTML = [
+            `<div class="alert alert-danger alert-dismissible" role="alert">`,
+            `   <div>contraseña incorrecta</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+          ].join('')
+          alertPlaceholder.append(wrapper);
+        }
       }
-      else{
-        const wrapper = document.createElement('div')
-        wrapper.innerHTML = [
-          `<div class="alert alert-danger alert-dismissible" role="alert">`,
-          `   <div>contraseña incorrecta</div>`,
-          '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-          '</div>'
-        ].join('')
-        alertPlaceholder.append(wrapper);
-      }
-    }
-  });
+    });
+  } 
 }
 
 

@@ -11,6 +11,10 @@ const numcantidad = document.getElementById('numcantidad');
 var tipoOperacion = '';
 
 logo.addEventListener('click', (e) => {
+  localStorage.removeItem('saldo');
+  localStorage.removeItem('id');
+  localStorage.removeItem('nombre');
+  localStorage.removeItem('cuentas');
   window.location="../../index.html"; 
 });
 
@@ -52,23 +56,42 @@ if(retirarSaldo){
 if(btnConfirmar){
   btnConfirmar.addEventListener('click', (e) => {
     e.preventDefault();
-    validarSaldo(tipoOperacion);
+    console.log(numcantidad.value);
+    if(numcantidad.value == ""){
+      const wrappererror = document.createElement('div')
+          wrappererror.innerHTML = [
+            `<div class="alert alert-danger alert-dismissible" role="alert">`,
+            `   <div>Favor de ingresar una cantidad</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+          ].join('')
+          alertInfo.append(wrappererror);
+    }
+    else if(numcantidad.value < 1){
+      const wrappererror = document.createElement('div')
+          wrappererror.innerHTML = [
+            `<div class="alert alert-danger alert-dismissible" role="alert">`,
+            `   <div>Debe ingresar una cantidad mayor a 0</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+          ].join('')
+          alertInfo.append(wrappererror);
+    }
+    else{
+      validarSaldo(tipoOperacion);
+    }
+    
   });
 }
 
 
 function validarSaldo(){
   let nuevoSaldo = 0;
-  var cuentas = localStorage.getItem('cuentas');
-  var arrCuentas =  JSON.parse(cuentas);
-  console.log(arrCuentas);
-  //debugger;
-  arrCuentas.forEach(element => {
-    if(element.id == localStorage.getItem('id')){
-     // debugger;
+  let saldo = localStorage.getItem('saldo');
+
       console.log(numcantidad.value);
       if(tipoOperacion == 'I'){
-        nuevoSaldo = parseInt(element.saldo) + parseInt(numcantidad.value);
+        nuevoSaldo = parseInt(saldo) + parseInt(numcantidad.value);
         if(nuevoSaldo > 990){
           const wrappererror = document.createElement('div')
           wrappererror.innerHTML = [
@@ -81,9 +104,7 @@ function validarSaldo(){
           alertInfo.append(wrappererror);
         }
         else{
-          element.saldo = nuevoSaldo;
-          console.log(arrCuentas);
-          //localStorage.setItem('cuentas',arrCuentas);
+          localStorage.setItem('saldo',nuevoSaldo);
 
           const wrapper = document.createElement('div')
           wrapper.innerHTML = [
@@ -96,7 +117,7 @@ function validarSaldo(){
         } 
       }
       else{
-        nuevoSaldo = parseInt(element.saldo) - parseInt(numcantidad.value);
+        nuevoSaldo = parseInt(saldo) - parseInt(numcantidad.value);
         if(nuevoSaldo < 10){
           const wrappererror = document.createElement('div')
           wrappererror.innerHTML = [
@@ -109,9 +130,7 @@ function validarSaldo(){
           alertInfo.append(wrappererror);
         }
         else{
-          element.saldo = nuevoSaldo;
-          console.log(arrCuentas);
-          //localStorage.setItem('cuentas',arrCuentas);
+          localStorage.setItem('saldo',nuevoSaldo);
 
           const wrapper = document.createElement('div')
           wrapper.innerHTML = [
@@ -124,8 +143,8 @@ function validarSaldo(){
         } 
       }
       
-    }
-  });
+    //}
+  // });
   numcantidad.value ='';
 }
 
