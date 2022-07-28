@@ -4,18 +4,18 @@ var cuentas = [
   { id:3,nombre: 'Maui', clave: 'Mauiwi', saldo: 67 }
 ];
 
- var jsonUsers = JSON.stringify(cuentas)
- localStorage.setItem('cuentas',jsonUsers  );
+ var jsonUsiarios = JSON.stringify(cuentas)
+ localStorage.setItem('cuentas',jsonUsiarios  );
 
 const usuario = document.getElementById('usuario');
 const password = document.getElementById('password');
 const btnIniciar = document.getElementById('btnIniciar');
 const bienvenido = document.getElementById('bienvenido');
 const logo = document.getElementById('logo');
-const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+const alertaEspacio = document.getElementById('liveAlertPlaceholder');
 
 var usuarioCuenta = '';
-var userSelected = '';
+var usuarioSeleccionado = '';
 
 logo.addEventListener('click', (e) => {
   window.location="../../index.html"; 
@@ -24,8 +24,8 @@ logo.addEventListener('click', (e) => {
 if(usuario)
 {
   usuario.addEventListener('change',(e) => {
-      userSelected = usuario.selectedIndex;
-      let nombre = usuario.options[userSelected].text; 
+    usuarioSeleccionado = usuario.selectedIndex;
+      let nombre = usuario.options[usuarioSeleccionado].text; 
       bienvenido.innerHTML = `Bienvenido ${nombre}`;
     });
 }
@@ -54,14 +54,14 @@ function validarContra(){
       '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
       '</div>'
     ].join('')
-    alertPlaceholder.append(wrapper);
+    alertaEspacio.append(wrapper);
   }
   else{
     var allUsers = localStorage.getItem('cuentas');
     var arrUsers =  JSON.parse(allUsers);
     arrUsers.forEach(element => {
       console.log("elemento: "+element.id);
-      if(element.id == userSelected){
+      if(element.id == usuarioSeleccionado){
         if(password.value == element.clave){
           usuarioCuenta = element.nombre;
           console.log(usuarioCuenta);
@@ -80,7 +80,7 @@ function validarContra(){
             '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
             '</div>'
           ].join('')
-          alertPlaceholder.append(wrapper);
+          alertaEspacio.append(wrapper);
         }
       }
     });

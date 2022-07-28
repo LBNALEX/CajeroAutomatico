@@ -5,7 +5,7 @@ const consultarSaldo = document.getElementById('consultarSaldo');
 const ingresarSaldo = document.getElementById('ingresarSaldo');
 const retirarSaldo = document.getElementById('retirarSaldo');
 const btnConfirmar = document.getElementById('btnConfirmar');
-const alertInfo = document.getElementById('alertInfo');
+const alertaInfo = document.getElementById('alertaInfo');
 const numcantidad = document.getElementById('numcantidad');
 
 var tipoOperacion = '';
@@ -31,7 +31,7 @@ if(consultarSaldo){
       '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
       '</div>'
     ].join('')
-    alertInfo.append(wrapper);
+    alertaInfo.append(wrapper);
 
   });
 }
@@ -65,7 +65,7 @@ if(btnConfirmar){
             '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
             '</div>'
           ].join('')
-          alertInfo.append(wrappererror);
+          alertaInfo.append(wrappererror);
     }
     else if(numcantidad.value < 1){
       const wrappererror = document.createElement('div')
@@ -75,7 +75,7 @@ if(btnConfirmar){
             '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
             '</div>'
           ].join('')
-          alertInfo.append(wrappererror);
+          alertaInfo.append(wrappererror);
     }
     else{
       validarSaldo(tipoOperacion);
@@ -101,7 +101,7 @@ function validarSaldo(){
             '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
             '</div>'
           ].join('')
-          alertInfo.append(wrappererror);
+          alertaInfo.append(wrappererror);
         }
         else{
           localStorage.setItem('saldo',nuevoSaldo);
@@ -113,7 +113,7 @@ function validarSaldo(){
             '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
             '</div>'
           ].join('')
-          alertInfo.append(wrapper);
+          alertaInfo.append(wrapper);
         } 
       }
       else{
@@ -127,7 +127,7 @@ function validarSaldo(){
             '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
             '</div>'
           ].join('')
-          alertInfo.append(wrappererror);
+          alertaInfo.append(wrappererror);
         }
         else{
           localStorage.setItem('saldo',nuevoSaldo);
@@ -139,12 +139,10 @@ function validarSaldo(){
             '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
             '</div>'
           ].join('')
-          alertInfo.append(wrapper);
+          alertaInfo.append(wrapper);
         } 
       }
       
-    //}
-  // });
   numcantidad.value ='';
 }
 
